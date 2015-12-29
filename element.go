@@ -6,3 +6,8 @@ type VirtualElement struct {
 	Attrs    *Attributes
 	Children interface{}
 }
+
+// ID returns the attribute ID of the VirtualElement instance
+func (el *VirtualElement) ID() string {
+	return el.Attrs.ID
+}
