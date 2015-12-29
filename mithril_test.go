@@ -39,3 +39,14 @@ func TestCreateElementWithAttr(t *testing.T) {
 		t.Fatalf("Expected element ID to be a listview but it was %s", el.Attr("id"))
 	}
 }
+
+func TestCreateElementWithClasses(t *testing.T) {
+	el := M("ul", []Attribute{
+		NewStringAttr("id", "listview"),
+		NewClassAttr("class-1", "class-2", "class-3", "class-4"),
+	})
+	expected := "class-1 class-2 class-3 class-4"
+	if el.Attr("class") != expected {
+		t.Fatalf("Expected element class to be %s but it was %s", expected, el.Attr("class"))
+	}
+}
