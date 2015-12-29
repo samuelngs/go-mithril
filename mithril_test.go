@@ -3,8 +3,8 @@ package mithril
 import "testing"
 
 func TestCreateElement(t *testing.T) {
-	element := M("div#id-value.class-name[data1='value1'][data2=\"value2\"][data3]")
-	if element == nil {
+	el := M("div#id-value.class-name[data1='value1'][data2=\"value2\"][data3]")
+	if el == nil {
 		t.Fatalf("Expected element to be a VirtualElement object but it was nil")
 	}
 }
@@ -22,11 +22,20 @@ func TestElementID(t *testing.T) {
 }
 
 func TestCreateElementChildren(t *testing.T) {
-	element := M(
+	el := M(
 		"div#obj1",
 		M("div#obj2"),
 	)
-	if _, ok := element.Children.(*VirtualElement); !ok {
+	if _, ok := el.Children.(*VirtualElement); !ok {
 		t.Fatalf("Expected element.Children to be a VirtualElement")
+	}
+}
+
+func TestCreateElementWithAttr(t *testing.T) {
+	attr := NewAttributes()
+	attr.ID = "listview"
+	el := M("ul", attr)
+	if el.Attrs.ID != "listview" {
+		t.Fatalf("Expected element ID to be a listview but it was %s", el.Attrs.ID)
 	}
 }
