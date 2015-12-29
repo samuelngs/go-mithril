@@ -173,6 +173,15 @@ func (attr *ListAttribute) Separator(s string) Attribute {
 	return attr
 }
 
+// NewIDAttr returns new class attribute
+func NewIDAttr(vals ...string) Attribute {
+	attr := NewStringAttr("id")
+	for _, v := range vals {
+		attr.Add(v)
+	}
+	return attr
+}
+
 // NewClassAttr returns new class attribute
 func NewClassAttr(vals ...string) Attribute {
 	attr := NewListAttr("class").Separator(" ")
