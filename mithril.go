@@ -42,8 +42,7 @@ func M(selector string, opts ...interface{}) *VirtualElement {
 			} else if res[1] == "#" {
 				element.Attr("id", res[2])
 			} else if res[1] == "." {
-				class := element.Attr("class")
-				if class == "" {
+				if !element.HasAttr("class") {
 					element.Attrs = append(element.Attrs, NewClassAttr(res[2]))
 				} else {
 					element.Attr("class", res[2])
