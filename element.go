@@ -29,6 +29,16 @@ func (el *VirtualElement) Attr(key string, val ...string) string {
 	return ""
 }
 
+// HasAttr returns true if VirtualElement has this attribute in attributes array
+func (el *VirtualElement) HasAttr(key string) bool {
+	for _, attr := range el.Attrs {
+		if attr.Key() == key {
+			return true
+		}
+	}
+	return false
+}
+
 // String returns the html string of the element
 func (el *VirtualElement) String() string {
 	return ""
