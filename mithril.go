@@ -1,9 +1,6 @@
 package mithril
 
-import (
-	"regexp"
-	"strings"
-)
+import "regexp"
 
 // M returns VirtualElement
 func M(selector string, opts ...interface{}) *VirtualElement {
@@ -27,25 +24,21 @@ func M(selector string, opts ...interface{}) *VirtualElement {
 		}
 	}
 	// match all results
-	re := regexp.MustCompile(`(^[\w\-]+|\#[\w\-]+|\.[\w\-]+|\[[\w\-]+\=\"[\w\-]+\"\]|\[[\w\-]+\=\'[\w\-]+\'\])`)
-	for _, res := range re.FindAllStringSubmatch(query, -1) {
-		data := res[0]
-		value := data[1:len(data)]
-		switch string(data[0]) {
-		case "[":
-			data := strings.Split(value, "=")
-			switch len(data) {
-			case 1:
-				element.Attrs.Data[data[0][:len(data[0])-1]] = ""
-			case 2:
-				element.Attrs.Data[data[0]] = data[1][1 : len(data[1])-2]
+	matches := regexp.MustCompile(`(?:(^|#|\.)([^#\.\[\]]+))|(\[.+?\])`)
+	for _, res := range matches.FindAllStringSubmatch(query, -1) {
+		if res[1] == "" && len(res[2]) > 0 {
+			element.Tag = res[2]
+		} else if res[1] == "#" {
+			element.Attrs.ID = res[2]
+		} else if res[1] == "." {
+			element.Attrs.Class = append(element.Attrs.Class, res[2])
+		} else if string(res[3][0]) == "[" {
+			matches := regexp.MustCompile(`\[(.+?)(?:=("|'|)(.*?)("|'|))?\]`)
+			for _, pair := range matches.FindAllStringSubmatch(res[3], -1) {
+				if len(pair[1]) > 0 {
+					element.Attrs.Data[pair[1]] = pair[3]
+				}
 			}
-		case "#":
-			element.Attrs.ID = value
-		case ".":
-			element.Attrs.Class = append(element.Attrs.Class, value)
-		default:
-			element.Tag = data
 		}
 	}
 	// return virtual element
