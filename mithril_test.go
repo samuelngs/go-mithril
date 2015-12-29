@@ -3,7 +3,7 @@ package mithril
 import "testing"
 
 func TestCreateElement(t *testing.T) {
-	el := M("div#id-value.class-name[data1='value1'][data2=\"value2\"][data3]")
+	el := M("div#id-value.lol.class-name[data1='value1'][data2=\"value2\"][data3]")
 	if el == nil {
 		t.Fatalf("Expected element to be a VirtualElement object but it was nil")
 	}
@@ -16,8 +16,8 @@ func TestElementTag(t *testing.T) {
 }
 
 func TestElementID(t *testing.T) {
-	if el := M("div#id-value"); el.Attrs.ID != "id-value" {
-		t.Fatalf("Expected element ID to be id-value but it was %s", el.Attrs.ID)
+	if el := M("div#id-value"); el.Attr("id") != "id-value" {
+		t.Fatalf("Expected element ID to be id-value but it was %s", el.Attr("id"))
 	}
 }
 
@@ -32,10 +32,10 @@ func TestCreateElementChildren(t *testing.T) {
 }
 
 func TestCreateElementWithAttr(t *testing.T) {
-	attr := NewAttributes()
-	attr.ID = "listview"
-	el := M("ul", attr)
-	if el.Attrs.ID != "listview" {
-		t.Fatalf("Expected element ID to be a listview but it was %s", el.Attrs.ID)
+	el := M("ul", []Attribute{
+		NewStringAttr("id", "listview"),
+	})
+	if el.Attr("id") != "listview" {
+		t.Fatalf("Expected element ID to be a listview but it was %s", el.Attr("id"))
 	}
 }
