@@ -8,13 +8,25 @@ var (
 // VirtualElement is an object which can convert to real DOM element
 type VirtualElement struct {
 	Tag      string
-	Attrs    *Attributes
+	Attrs    []Attribute
 	Children interface{}
 }
 
-// ID returns the attribute ID of the VirtualElement instance
-func (el *VirtualElement) ID() string {
-	return el.Attrs.ID
+// Attr returns or sets the attribute
+func (el *VirtualElement) Attr(key string, val ...string) string {
+	for _, attr := range el.Attrs {
+		if attr.Key() == key {
+			if len(val) > 0 {
+				attr.Val(val[0])
+			}
+			return attr.Val()
+		}
+	}
+	if len(val) > 0 {
+		el.Attrs = append(el.Attrs, NewStringAttr(key, val[0]))
+		return val[0]
+	}
+	return ""
 }
 
 // String returns the html string of the element
