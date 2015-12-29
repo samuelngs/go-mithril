@@ -3,7 +3,7 @@ package mithril
 import "testing"
 
 func TestCreateElement(t *testing.T) {
-	element := M("div#id-value.class-name[data1='value1'][data2=\"value2\"]")
+	element := M("div#id-value.class-name[data1='value1'][data2=\"value2\"][data3]")
 	if element == nil {
 		t.Fatalf("Expected element to be a VirtualElement object but it was nil")
 	}
