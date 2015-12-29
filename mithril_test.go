@@ -24,10 +24,20 @@ func TestElementID(t *testing.T) {
 func TestCreateElementChildren(t *testing.T) {
 	el := M(
 		"div#obj1",
-		M("div#obj2"),
+		M("div#obj2", "hello world"),
 	)
 	if _, ok := el.Children.(*VirtualElement); !ok {
 		t.Fatalf("Expected element.Children to be a VirtualElement")
+	}
+}
+
+func TestCreateElementText(t *testing.T) {
+	el := M(
+		"div#obj1",
+		"text",
+	)
+	if _, ok := el.Children.(string); !ok {
+		t.Fatalf("Expected element.Children to be a string")
 	}
 }
 
