@@ -30,7 +30,7 @@ func M(selector string, opts ...interface{}) *VirtualElement {
 				if i == 0 {
 					element.Attrs = obj
 				}
-			case string, bool, int, *VirtualElement:
+			case string, bool, int, *VirtualElement, []interface{}:
 				element.Children = obj
 			}
 		}
