@@ -4,7 +4,7 @@ Mithril (Isomorphic) server-side render for Go
 
 ## License ##
 
-This project is distributed under the MIT license found in the [LICENSE](./LICENSE) file. Cascadia's license is [here](https://github.com/andybalholm/cascadia/blob/master/LICENSE).
+This project is distributed under the MIT license found in the [LICENSE](./LICENSE) file.
 
 ```
 The MIT License (MIT)
