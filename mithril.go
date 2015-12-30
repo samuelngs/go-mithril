@@ -1,6 +1,9 @@
 package mithril
 
-import "regexp"
+import (
+	"fmt"
+	"regexp"
+)
 
 const (
 	// Parser is the tags regex parser
@@ -60,4 +63,29 @@ func M(selector string, opts ...interface{}) *VirtualElement {
 	}()
 	// return virtual element
 	return <-c
+}
+
+// Render returns HTML string
+func Render(elements ...interface{}) string {
+	html := ""
+	for _, element := range elements {
+		switch obj := element.(type) {
+		case Component:
+			obj.Controller()
+			html += fmt.Sprintf("%s", obj.View())
+		case []interface{}:
+			for _, item := range obj {
+				html += Render(item)
+			}
+		case *VirtualElement:
+			html += obj.String()
+		case string:
+			html += obj
+		case int, int32, int64:
+			html += fmt.Sprintf("%d", obj)
+		case float32, float64:
+			html += fmt.Sprintf("%f", obj)
+		}
+	}
+	return html
 }
