@@ -4,6 +4,8 @@ package mithril
 type Component interface {
 	Controller()
 	View() interface{}
+	Get(string) interface{}
+	Set(string, interface{})
 }
 
 // ExtendComponent creates a basic component view
