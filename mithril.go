@@ -82,7 +82,7 @@ func Render(elements ...interface{}) string {
 			html += obj.String()
 		case string:
 			html += obj
-		case int, int32, int64:
+		case int, int8, int32, int64, uint:
 			html += fmt.Sprintf("%d", obj)
 		case float32, float64:
 			html += fmt.Sprintf("%f", obj)
