@@ -22,6 +22,18 @@ To create an username textbox:
 ```go
 M("input.username[type='text']") // Returns <input class="username" type="text" />
 ```
+Create a textbox with id, class and type
+```go
+M("input", []Attribute{
+	ID("username"),
+	Class("input", "input-username"),
+	NewStringAttr("type", "text"),
+}) // Returns <input id="username" class="input input-username" type="text" />
+```
+Create a div with content
+```go
+M("div", "Hello World") // Returns <div>Hello World</div>
+```
 
 Create a list with component
 ```go
