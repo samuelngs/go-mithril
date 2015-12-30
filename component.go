@@ -1,5 +1,7 @@
 package mithril
 
+import "errors"
+
 // Component for Mithril
 type Component interface {
 	Controller()
@@ -25,8 +27,7 @@ func (component *BaseComponent) Controller() {
 
 // View function creates VirtualElement or string, int, bool
 func (component *BaseComponent) View() interface{} {
-	panic("please override View function")
-	return nil
+	return errors.New("please override View function")
 }
 
 // Get returns controller value
