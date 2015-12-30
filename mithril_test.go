@@ -43,7 +43,7 @@ func TestCreateElementText(t *testing.T) {
 
 func TestCreateElementWithAttr(t *testing.T) {
 	el := M("ul", []Attribute{
-		NewStringAttr("id", "listview"),
+		ID("listview"),
 	})
 	if el.Attr("id") != "listview" {
 		t.Fatalf("Expected element ID to be a listview but it was %s", el.Attr("id"))
@@ -52,8 +52,8 @@ func TestCreateElementWithAttr(t *testing.T) {
 
 func TestCreateElementWithClasses(t *testing.T) {
 	el := M("ul", []Attribute{
-		NewStringAttr("id", "listview"),
-		NewClassAttr("class-1", "class-2", "class-3", "class-4"),
+		ID("listview"),
+		Class("class-1", "class-2", "class-3", "class-4"),
 	})
 	expected := "class-1 class-2 class-3 class-4"
 	if el.Attr("class") != expected {
