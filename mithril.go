@@ -3,6 +3,7 @@ package mithril
 import (
 	"fmt"
 	"regexp"
+	"strings"
 )
 
 const (
@@ -41,7 +42,7 @@ func M(selector string, opts ...interface{}) *VirtualElement {
 		matches := regexp.MustCompile(Parser)
 		for _, res := range matches.FindAllStringSubmatch(query, -1) {
 			if res[1] == "" && len(res[2]) > 0 {
-				element.Tag = res[2]
+				element.Tag = strings.ToLower(res[2])
 			} else if res[1] == "#" {
 				element.Attr("id", res[2])
 			} else if res[1] == "." {
