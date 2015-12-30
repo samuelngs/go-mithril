@@ -4,6 +4,7 @@ import "strings"
 
 // Attribute is an attribute namespace-key-value triple.
 type Attribute interface {
+	String() string
 	Key(...string) string
 	Val(...string) string
 	Namespace(...string) string
@@ -31,6 +32,11 @@ func NewStringAttr(args ...string) *StringAttribute {
 type StringAttribute struct {
 	namespace, key string
 	val            string
+}
+
+// String returns StringAttribute in string format
+func (attr *StringAttribute) String() string {
+	return attr.val
 }
 
 // Key for sets or returns key string
@@ -107,6 +113,11 @@ func NewNSListAttr(args ...string) *ListAttribute {
 type ListAttribute struct {
 	namespace, key, separator string
 	val                       []string
+}
+
+// String returns ListAttribute in string format
+func (attr *ListAttribute) String() string {
+	return attr.Val()
 }
 
 // Key for sets or returns key string
