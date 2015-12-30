@@ -18,8 +18,8 @@ func (component *HelloComponent) Controller() {
 
 func (component *HelloComponent) View() interface{} {
 	return M("div", []Attribute{
-		NewIDAttr("home"),
-		NewClassAttr("main", "main-container"),
+		ID("home"),
+		Class("main", "main-container"),
 	}, []interface{}{
 		M("p", component.Get("sample_text")),
 		M("ul", func() []interface{} {
