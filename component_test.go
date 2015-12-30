@@ -8,7 +8,7 @@ func NewHelloComponent() *HelloComponent {
 }
 
 type HelloComponent struct {
-	*Component
+	*BaseComponent
 }
 
 func (component *HelloComponent) Controller() {
