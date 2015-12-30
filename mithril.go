@@ -2,6 +2,7 @@ package mithril
 
 import (
 	"fmt"
+	"html"
 	"regexp"
 	"strings"
 )
@@ -34,7 +35,7 @@ func M(selector string, opts ...interface{}) *VirtualElement {
 				if i == 0 {
 					element.Attrs = obj
 				}
-			case string, bool, int, int8, int32, int64, uint, uint8, uint32, uint64, float32, float64, complex64, *VirtualElement, *Component, []interface{}:
+			case string, bool, int, int8, int32, int64, uint, uint8, uint32, uint64, float32, float64, complex64, *VirtualElement, *TrustElement, *Component, []interface{}:
 				element.Children = obj
 			}
 		}
@@ -66,29 +67,36 @@ func M(selector string, opts ...interface{}) *VirtualElement {
 	return <-c
 }
 
+// Trust allows insert HTML for render arbitrary, potentially invalid markup, as well as run arbitrary Javascript, and therefore the developer is responsible for either
+func Trust(str string) *TrustElement {
+	return &TrustElement{str}
+}
+
 // Render returns HTML string
 func Render(elements ...interface{}) string {
-	html := ""
+	str := ""
 	for _, element := range elements {
 		switch obj := element.(type) {
 		case Component:
 			obj.Controller()
-			html += fmt.Sprintf("%s", obj.View())
+			str += fmt.Sprintf("%s", obj.View())
 		case []interface{}:
 			for _, item := range obj {
-				html += Render(item)
+				str += Render(item)
 			}
 		case *VirtualElement:
-			html += obj.String()
+			str += obj.String()
+		case *TrustElement:
+			str += obj.string
 		case string:
-			html += obj
+			str += html.EscapeString(obj)
 		case bool:
-			html += fmt.Sprintf("%t", obj)
+			str += fmt.Sprintf("%t", obj)
 		case int, int8, int32, int64, uint, uint8, uint32, uint64:
-			html += fmt.Sprintf("%d", obj)
+			str += fmt.Sprintf("%d", obj)
 		case float32, float64, complex64:
-			html += fmt.Sprintf("%f", obj)
+			str += fmt.Sprintf("%f", obj)
 		}
 	}
-	return html
+	return str
 }
