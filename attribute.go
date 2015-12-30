@@ -173,17 +173,18 @@ func (attr *ListAttribute) Separator(s string) Attribute {
 	return attr
 }
 
-// NewIDAttr returns new class attribute
-func NewIDAttr(vals ...string) Attribute {
+// ID returns new class attribute
+func ID(vals ...string) Attribute {
 	attr := NewStringAttr("id")
 	for _, v := range vals {
-		attr.Add(v)
+		attr.Val(v)
+		break
 	}
 	return attr
 }
 
-// NewClassAttr returns new class attribute
-func NewClassAttr(vals ...string) Attribute {
+// Class returns new class attribute
+func Class(vals ...string) Attribute {
 	attr := NewListAttr("class").Separator(" ")
 	for _, v := range vals {
 		attr.Add(v)
@@ -191,8 +192,8 @@ func NewClassAttr(vals ...string) Attribute {
 	return attr
 }
 
-// NewStyleAttr returns new class attribute
-func NewStyleAttr(vals ...string) Attribute {
+// Style returns new class attribute
+func Style(vals ...string) Attribute {
 	attr := NewListAttr("style").Separator(";")
 	for _, v := range vals {
 		attr.Add(v)
