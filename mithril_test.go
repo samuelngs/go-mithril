@@ -60,3 +60,25 @@ func TestCreateElementWithClasses(t *testing.T) {
 		t.Fatalf("Expected element class to be %s but it was %s", expected, el.Attr("class"))
 	}
 }
+
+func TestEscapeString(t *testing.T) {
+	el := M(
+		"div#obj1",
+		"<div id=\"escape\"></div>",
+	)
+	expected := "<div id=\"obj1\">&lt;div id=&#34;escape&#34;&gt;&lt;/div&gt;</div>"
+	if el.String() != expected {
+		t.Fatalf("Expected element html to be %s but it was %s", expected, el)
+	}
+}
+
+func TestTrustString(t *testing.T) {
+	el := M(
+		"div#obj1",
+		Trust("<div id=\"not-escape\"></div>"),
+	)
+	expected := "<div id=\"obj1\"><div id=\"not-escape\"></div></div>"
+	if el.String() != expected {
+		t.Fatalf("Expected element html to be %s but it was %s", expected, el)
+	}
+}
