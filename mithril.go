@@ -34,7 +34,7 @@ func M(selector string, opts ...interface{}) *VirtualElement {
 				if i == 0 {
 					element.Attrs = obj
 				}
-			case string, bool, int, *VirtualElement, []interface{}:
+			case string, bool, int, int8, int32, int64, uint, uint8, uint32, uint64, float32, float64, complex64, *VirtualElement, *Component, []interface{}:
 				element.Children = obj
 			}
 		}
@@ -82,9 +82,11 @@ func Render(elements ...interface{}) string {
 			html += obj.String()
 		case string:
 			html += obj
-		case int, int8, int32, int64, uint:
+		case bool:
+			html += fmt.Sprintf("%t", obj)
+		case int, int8, int32, int64, uint, uint8, uint32, uint64:
 			html += fmt.Sprintf("%d", obj)
-		case float32, float64:
+		case float32, float64, complex64:
 			html += fmt.Sprintf("%f", obj)
 		}
 	}
