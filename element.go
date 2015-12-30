@@ -1,7 +1,5 @@
 package mithril
 
-import "fmt"
-
 var (
 	// SelfClosingTagToken is a list of self closing elements tag
 	SelfClosingTagToken = []string{"area", "base", "br", "col", "command", "embed", "hr", "img", "input", "keygen", "link", "meta", "param", "source", "track", "wbr", "!doctype"}
@@ -51,26 +49,6 @@ func (el *VirtualElement) IsSelfClosingTag() bool {
 	return false
 }
 
-// Render returns html string of anything
-func (el *VirtualElement) Render(item interface{}) string {
-	str := ""
-	switch obj := item.(type) {
-	case []interface{}:
-		for _, item := range obj {
-			str += el.Render(item)
-		}
-	case *VirtualElement:
-		str += obj.String()
-	case string:
-		str += obj
-	case int, int32, int64:
-		str += fmt.Sprintf("%d", obj)
-	case float32, float64:
-		str += fmt.Sprintf("%f", obj)
-	}
-	return str
-}
-
 // String returns the html string of the element
 func (el *VirtualElement) String() string {
 	res := make(chan string)
@@ -91,7 +69,7 @@ func (el *VirtualElement) String() string {
 			html += " />"
 		} else {
 			html += ">"
-			html += el.Render(el.Children)
+			html += Render(el.Children)
 			html += "</"
 			if el.Tag != "" {
 				html += el.Tag
