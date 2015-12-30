@@ -5,6 +5,11 @@ var (
 	SelfClosingTagToken = []string{"area", "base", "br", "col", "command", "embed", "hr", "img", "input", "keygen", "link", "meta", "param", "source", "track", "wbr", "!doctype"}
 )
 
+// TrustElement flags a string as trusted HTML.
+type TrustElement struct {
+	string
+}
+
 // VirtualElement is an object which can convert to real DOM element
 type VirtualElement struct {
 	Tag      string
