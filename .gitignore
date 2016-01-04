@@ -28,6 +28,7 @@ bin
 pkg
 vendor
 release
+coverage.out
 
 # NPM
 node_modules
