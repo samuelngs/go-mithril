@@ -1,5 +1,9 @@
 # go-mithril
 
+[![Build Status](https://travis-ci.org/samuelngs/go-mithril.svg?branch=master)](https://travis-ci.org/samuelngs/go-mithril)
+[![Coverage Status](https://coveralls.io/repos/samuelngs/go-mithril/badge.svg?branch=master&service=github)](https://coveralls.io/github/samuelngs/go-mithril?branch=master)
+[![GoDoc](https://godoc.org/github.com/samuelngs/go-mithril?status.svg)](https://godoc.org/github.com/samuelngs/go-mithril)
+
 Mithril (Isomorphic) server-side render for Go
 
 ### What is Mithril(.JS)?
