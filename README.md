@@ -64,6 +64,26 @@ func main() {
 }
 ```
 
+## Shortcut
+
+To use `m` instead of `M`
+```go
+import (
+	"github.com/samuelngs/go-mithril"
+)
+var (
+	m      = mithril.M
+	render = mithril.Render
+	id     = mithril.ID
+	class  = mithril.Class
+)
+func main() {
+ 	render(
+ 		m("div", "Hello World")
+ 	)
+}
+```
+
 ## Documentation
 
 `go doc` format documentation for this project can be viewed online without installing the package by using the GoDoc page at: https://godoc.org/github.com/samuelngs/go-mithril
