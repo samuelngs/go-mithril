@@ -194,21 +194,21 @@ func ID(vals ...string) Attribute {
 	return attr
 }
 
-// Attr returns new attribute
-func Attr(vals ...string) Attribute {
-	attr := NewStringAttr("id")
-	for _, v := range vals {
-		attr.Val(v)
-		break
-	}
-	return attr
-}
-
 // Class returns new class attribute
 func Class(vals ...string) Attribute {
 	attr := NewListAttr("class").Separator(" ")
 	for _, v := range vals {
 		attr.Add(v)
+	}
+	return attr
+}
+
+// Attr returns new attribute
+func Attr(name string, vals ...string) Attribute {
+	attr := NewStringAttr(name)
+	for _, v := range vals {
+		attr.Val(v)
+		break
 	}
 	return attr
 }
